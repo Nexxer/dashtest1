@@ -101,6 +101,7 @@ $.getJSON("data2.json", function (json) {
                             </a>
                         </div>
                     </div>
+                    <div v-on:click="show = !show" class="btn-close"></div>
                 </div>
             </transition>
     </div>
@@ -133,6 +134,7 @@ $.getJSON("data2.json", function (json) {
                             </a>
                         </div>
                     </div>
+                    <div v-on:click="show = !show" class="btn-close"></div>
                 </div>
             </transition>
     </div>
