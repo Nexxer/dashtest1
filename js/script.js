@@ -7,7 +7,7 @@ function isNumber(n) {
 
 
 
-$.getJSON("data2.json", function (json) {
+$.getJSON("data3.json", function (json) {
     Vue.component('koeficient', {
     data() {
         return {
@@ -194,9 +194,12 @@ $.getJSON("data2.json", function (json) {
             <span class="btn-more btn-solutions" v-on:click="show = !show">Мероприятия</span>
 
             <transition name="fade">
-                <div class="more-info solutions-wrapper" v-if="show">
+                <div class="more-info" v-if="show">
                     <div v-for="EVENT in info[solID]" class="more-info-row">
-                            <div class="info-name">{{EVENT.TITLE}}</div>
+                        <div class="info-name">{{EVENT.TITLE}}</div>
+                        <div v-if="EVENT.COMMENTS">
+                            <comments :info="EVENT.COMMENTS"></comments>
+                        </div>
                     </div>
                     <div v-on:click="show = !show" class="btn-close"></div>
                 </div>
@@ -218,13 +221,13 @@ $.getJSON("data2.json", function (json) {
     },
     template: `
     <div>
-            <span class="tree_label btn-more" v-on:click="show = !show">Комментарии</span>
+            <span class="btn-more btn-solutions" v-on:click="show = !show">Комментарии</span>
 
             <transition name="fade">
-                <div class="more-info" v-if="show">
-                    <div v-for="COMMENTS in info" class="more-info-row">
-                        <div class="info-name">{{COMMENTS.POST_DATE}}</div>
-                        <div class="info-name" style="color: #000">{{COMMENTS.POST_MESSAGE}}</div>
+                <div class="more-info" v-if="show"> Комментарии
+                    <div v-for="COMMENT in info" class="more-info-row">
+                        <div class="info-name">{{COMMENT.POST_DATE}}</div>
+                        <div class="info-name" style="color: #000">{{COMMENT.POST_MESSAGE}}</div>
                     </div>
                     <div v-on:click="show = !show" class="btn-close"></div>
                 </div>
