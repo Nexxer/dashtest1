@@ -162,9 +162,12 @@ $.getJSON("data3.json", function (json) {
 
             <transition name="fade">
                 <div class="more-info" v-if="show">
-                    <div v-for="SOLUTIONS in info" class="more-info-row">
-                        <div class="info-name">{{SOLUTIONS.TITLE }}</div>
-                            <events :info="events" :solID="SOLUTIONS.ID"></events>
+                    <div v-for="SOLUTION in info" class="more-info-row">
+                        <div class="info-name">{{SOLUTION.TITLE }}</div>
+                            <events :info="events" :solID="SOLUTION.ID"></events>
+                            <div v-if="SOLUTION.COMMENTS">
+                                <comments :info="SOLUTION.COMMENTS"></comments>
+                            </div>
                     </div>
                     <div v-on:click="show = !show" class="btn-close"></div>
                 </div>
