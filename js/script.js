@@ -35,6 +35,7 @@ $.getJSON("data2.json", function (json) {
                             </div>
                         </div>
                     </div>
+                    <div v-on:click="show = !show" class="btn-close"></div>
                 </div>
             </transition>
     </div>
@@ -67,6 +68,7 @@ $.getJSON("data2.json", function (json) {
                             </div>
                         </div>
                     </div>
+                    <div v-on:click="show = !show" class="btn-close"></div>
                 </div>
             </transition>
     </div>
@@ -146,6 +148,10 @@ $.getJSON("data2.json", function (json) {
         info: {
             type: Object,
             default: {}
+        },
+        events: {
+            type: Object,
+            default: {}
         }
     },
     template: `
@@ -155,10 +161,13 @@ $.getJSON("data2.json", function (json) {
             <transition name="fade">
                 <div class="more-info" v-if="show">
                     <div v-for="SOLUTIONS in info" class="more-info-row">
-                        <div class="info-name">{{SOLUTIONS.TITLE}}</div>
+                        <div class="info-name">{{SOLUTIONS.TITLE }}</div>
+                            <events :info="events" :solID="SOLUTIONS.ID"></events>
                     </div>
+                    <div v-on:click="show = !show" class="btn-close"></div>
                 </div>
             </transition>
+
     </div>
     `
 });;
@@ -172,19 +181,22 @@ $.getJSON("data2.json", function (json) {
         info: {
             type: Object,
             default: {}
+        },
+        solID: {
+            type: String,
+            default: ''
         }
     },
     template: `
     <div>
-            <span class="tree_label btn-more" v-on:click="show = !show">Мероприятия</span>
+            <span class="btn-more btn-solutions" v-on:click="show = !show">Мероприятия</span>
 
             <transition name="fade">
-                <div class="more-info" v-if="show">
-                    <div v-for="EVENT in info" class="more-info-row">
-                        <div v-for="SUBEVENT in EVENT">
-                            <div class="info-name">{{SUBEVENT.TITLE}}</div>
-                        </div>
+                <div class="more-info solutions-wrapper" v-if="show">
+                    <div v-for="EVENT in info[solID]" class="more-info-row">
+                            <div class="info-name">{{EVENT.TITLE}}</div>
                     </div>
+                    <div v-on:click="show = !show" class="btn-close"></div>
                 </div>
             </transition>
     </div>
@@ -198,8 +210,8 @@ $.getJSON("data2.json", function (json) {
     },
     props: {
         info: {
-            type: Object,
-            default: {}
+            type: Array,
+            default: []
         }
     },
     template: `
@@ -212,6 +224,7 @@ $.getJSON("data2.json", function (json) {
                         <div class="info-name">{{COMMENTS.POST_DATE}}</div>
                         <div class="info-name" style="color: #000">{{COMMENTS.POST_MESSAGE}}</div>
                     </div>
+                    <div v-on:click="show = !show" class="btn-close"></div>
                 </div>
             </transition>
     </div>
